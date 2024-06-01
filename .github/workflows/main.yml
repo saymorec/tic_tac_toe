@@ -22,7 +22,12 @@ jobs:
         run: yarn install
 
       - name: Install Playwright and Vitest
-        run: yarn add playwright vitest
+        run: |
+          npm install -g playwright
+          npm install -g vitest
+
+      - name: Install browsers for Playwright
+        run: npx playwright install
 
       - name: Run unit tests
         run: yarn vitest
