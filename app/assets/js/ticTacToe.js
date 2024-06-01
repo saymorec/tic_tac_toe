@@ -6,13 +6,17 @@ function handleSquareClick(index) {
   if (boardState[index] !== '' || !gameActive) return;
   boardState[index] = currentPlayer;
   renderBoard();
-  checkGameStatus();
   currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+  checkGameStatus();
+  if (gameActive) {
+    setStatus(`Player ${currentPlayer}'s turn`);
+  }
 }
 
 function checkGameStatus() {
-  if (checkWinner(currentPlayer)) {
-    setStatus(`Player ${currentPlayer} wins!`);
+  const prevPlayer = currentPlayer === 'X' ? 'O' : 'X';
+  if (checkWinner(prevPlayer)) {
+    setStatus(`Player ${prevPlayer} wins!`);
     gameActive = false;
     return;
   }
@@ -21,7 +25,6 @@ function checkGameStatus() {
     gameActive = false;
     return;
   }
-  setStatus(`Player ${currentPlayer}'s turn`);
 }
 
 function checkWinner(player) {
