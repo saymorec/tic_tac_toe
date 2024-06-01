@@ -35,11 +35,10 @@ jobs:
       - name: Run end-to-end tests
         run: node integration-tests/ticTacToe.mjs
 
-      - name: Build and deploy to Github Pages
+      - name: Deploy to Github Pages
         if: success()
         run: |
-          yarn build
-          gh-pages -d build
+          gh-pages -d .
 
       - name: Archive test results
         uses: actions/upload-artifact@v2
