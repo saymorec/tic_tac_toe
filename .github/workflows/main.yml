@@ -22,12 +22,7 @@ jobs:
         run: yarn install
 
       - name: Install Playwright and Vitest
-        run: |
-          npm install -g playwright
-          npm install -g vitest
-
-      - name: Install browsers for Playwright
-        run: npx playwright install
+        run: yarn add playwright vitest
 
       - name: Run unit tests
         run: yarn vitest
@@ -39,4 +34,14 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: test-results
-          path: test-results/test_results.xml
+          path: test-results.xml
+
+      - name: Deploy to GitHub Pages
+        if: success()
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git checkout -b gh-pages
+          git add index.html
+          git commit -m "Update index.html from main branch"
+          git push --force --set-upstream origin gh-pages
