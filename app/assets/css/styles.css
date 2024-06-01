@@ -54,3 +54,9 @@
 .reset-button:hover {
     background-color: #0056b3;
 }
+
+.instructions {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #555;
+}
