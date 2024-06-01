@@ -48,5 +48,10 @@ This repository contains a simple yet fully functional Tic Tac Toe game built us
         ```
         pnpm install
         ```
-4. Open the `index.html` file in your web browser. Alternatively, you can play the game online [here](https://saymorec.github.io/tic_tac_toe/index.html).
+4. Open the `index.html` file in your web browser. Alternatively, you may play the game online [here](https://saymorec.github.io/tic_tac_toe/index.html)
 5. Play the game and enjoy!
+
+### Running Tests
+1. To run unit tests, use the command: `yarn vitest`
+2. To run end-to-end tests, use the command: `node integration-tests/ticTacToe.mjs`
+3. To run both unit and end-to-end tests, use the command: `yarn test`
