@@ -48,5 +48,5 @@ This repository contains a simple yet fully functional Tic Tac Toe game built us
         ```
         pnpm install
         ```
-4. Open the `index.html` file in your web browser.
+4. Open the `index.html` file in your web browser. Alternatively, you can play the game online [here](https://saymorec.github.io/tic_tac_toe/index.html).
 5. Play the game and enjoy!
