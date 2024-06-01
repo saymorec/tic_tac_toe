@@ -27,6 +27,9 @@ jobs:
       - name: Run unit tests
         run: yarn vitest
 
+      - name: Install browsers for Playwright
+        run: npx playwright install
+
       - name: Run end-to-end tests
         run: node integration-tests/ticTacToe.mjs
 
