@@ -65,9 +65,9 @@ import { chromium } from 'playwright';
 
   // Verify status after additional interactions
   statusText = await getStatusText();
-  console.log('Status after additional interactions (expecting Player X\'s turn):', statusText);
-  if (statusText !== "Player X's turn") {
-    console.error('Expected "Player X\'s turn" but got:', statusText);
+  console.log('Status after additional interactions (expecting Player O\'s turn):', statusText);
+  if (statusText !== "Player O's turn") {
+    console.error('Expected "Player O\'s turn" but got:', statusText);
   }
 
   // Close the browser
