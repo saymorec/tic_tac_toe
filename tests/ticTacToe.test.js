@@ -4,6 +4,7 @@ import {
   checkWinner,
   resetGame,
   setStatus,
+  checkGameStatus,
   renderBoard,
   boardState as originalBoardState,
   currentPlayer as originalCurrentPlayer,
@@ -13,13 +14,16 @@ import {
 vi.mock('../app/assets/js/ticTacToe.js', () => ({
   renderBoard: vi.fn(),
   setStatus: vi.fn(),
+
   handleSquareClick: vi.fn((index) => {
     if (originalBoardState[index] !== '' || !originalGameActive) return;
     originalBoardState[index] = originalCurrentPlayer;
     renderBoard();
-    checkGameStatus(); // Include checkGameStatus here
+    checkGameStatus();
     originalCurrentPlayer = originalCurrentPlayer === 'X' ? 'O' : 'X';
+    setStatus(`Player ${originalCurrentPlayer}'s turn`);
   }),
+
   checkWinner: vi.fn((player) => {
     const winningConditions = [
       [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
@@ -28,6 +32,7 @@ vi.mock('../app/assets/js/ticTacToe.js', () => ({
     ];
     return winningConditions.some(condition => condition.every(index => originalBoardState[index] === player));
   }),
+
   resetGame: vi.fn(() => {
     originalCurrentPlayer = 'X';
     originalGameActive = true;
@@ -35,8 +40,11 @@ vi.mock('../app/assets/js/ticTacToe.js', () => ({
     renderBoard();
     setStatus(`Player ${originalCurrentPlayer}'s turn`);
   }),
+
   setStatus: vi.fn(),
   renderBoard: vi.fn(),
+  checkGameStatus: vi.fn(),
+
   boardState: ['', '', '', '', '', '', '', '', ''],
   currentPlayer: 'X',
   gameActive: true
@@ -47,21 +55,14 @@ describe('Tic Tac Toe Game', () => {
     resetGame();
   });
 
-  // it('should handle square click event', () => {
-  //   const index = 0;
-  //   handleSquareClick(index);
-  //   expect(originalBoardState[index]).toBe('X');
-  //   expect(renderBoard).toHaveBeenCalled();
-  //   expect(setStatus).toHaveBeenCalledWith("Player O's turn");
-  // });
-
-  // it('should not allow click on an already occupied square', () => {
-  //   const index = 0;
-  //   handleSquareClick(index);
-  //   handleSquareClick(index);
-  //   expect(originalBoardState[index]).toBe('X');
-  //   expect(renderBoard).toHaveBeenCalledTimes(1);
-  // });
+  it('should handle square click event', () => {
+    const index = 0;
+    handleSquareClick(index);
+    expect(originalBoardState[index]).toBe('X');
+    expect(renderBoard).toHaveBeenCalled();
+    expect(setStatus).toHaveBeenCalledWith("Player O's turn");
+    expect(checkGameStatus).toHaveBeenCalled();
+  });
 
   it('should check for a winner', () => {
     originalBoardState[0] = 'X';
@@ -70,36 +71,37 @@ describe('Tic Tac Toe Game', () => {
     expect(checkWinner('X')).toBe(true);
   });
 
-  // it('should reset the game', () => {
-  //   handleSquareClick(0);
-  //   resetGame();
-  //   expect(originalBoardState).toEqual(['', '', '', '', '', '', '', '', '']);
-  //   expect(renderBoard).toHaveBeenCalled();
-  //   expect(setStatus).toHaveBeenCalledWith("Player X's turn");
-  // });
-
   it('should update the game status', () => {
     setStatus('Player X wins!');
     expect(setStatus).toHaveBeenCalledWith('Player X wins!');
   });
 
-  // it('should call checkGameStatus on a winning move and set game to inactive', () => {
-  //   originalBoardState[0] = 'X';
-  //   originalBoardState[1] = 'X';
-  //   originalBoardState[2] = 'X';
-  //   handleSquareClick(3); // Any move after a winning combination
+    it('should reset the game', () => {
+    handleSquareClick(0);
+    resetGame();
+    expect(originalBoardState).toEqual(['', '', '', '', '', '', '', '', '']);
+    expect(renderBoard).toHaveBeenCalled();
+    expect(setStatus).toHaveBeenCalledWith("Player X's turn");
+  });
+
+    it('should call checkGameStatus on a winning move', () => {
+    originalBoardState[0] = 'X';
+    originalBoardState[1] = 'X';
+    originalBoardState[2] = 'X';
+    handleSquareClick(3);
   
-  //   // Explicitly call the mocked checkGameStatus
-  //   expect(checkGameStatus).toHaveBeenCalled();
-  
-  //   // Mock checkGameStatus to return true (winner) and set game inactive
-  //   checkGameStatus.mockReturnValueOnce(true);
-  
-  //   // Call checkGameStatus again to ensure it's correctly called after a winning move
-  //   expect(checkGameStatus).toHaveBeenCalled();
-  
-  //   // Test if gameActive is set to false after a winning move
-  //   expect(originalGameActive).toBe(false);
-  // });
+    expect(checkGameStatus).toHaveBeenCalled();
+
+    checkGameStatus.mockReturnValueOnce(true);
+    expect(checkGameStatus).toHaveBeenCalled();
+  });
+
+
+  it('should not allow click on an already occupied square', () => {
+    const index = 0;
+    handleSquareClick(index);
+    handleSquareClick(index);
+    expect(originalBoardState[index]).toBe('X');
+  });
 });
 
