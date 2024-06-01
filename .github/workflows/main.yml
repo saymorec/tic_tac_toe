@@ -38,7 +38,9 @@ jobs:
       - name: Deploy to Github Pages
         if: success()
         run: |
-          gh-pages -d .
+          git add .
+          git commit -m "Deploy to Github Pages"
+          git push origin main:gh-pages
 
       - name: Archive test results
         uses: actions/upload-artifact@v2
