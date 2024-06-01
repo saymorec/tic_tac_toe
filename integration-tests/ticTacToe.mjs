@@ -5,7 +5,8 @@ import { chromium } from 'playwright';
   const page = await browser.newPage();
 
   // Navigate to the Tic Tac Toe app
-  await page.goto('file:///Users/saymorechifamba/Documents/MyDocuments/tic_tac_toe/app/index.html');
+  // await page.goto('file:///Users/saymorechifamba/Documents/MyDocuments/tic_tac_toe/index.html');
+  await page.goto('https://saymorec.github.io/tic_tac_toe/index.html')
 
   // Perform game interactions
   await page.click('.square:nth-child(1)');
