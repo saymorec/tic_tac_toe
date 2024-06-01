@@ -5,17 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="app/assets/css/styles.css">
+    <meta name="description" content="Play Tic Tac Toe - a simple and fun game. Take turns clicking on the squares to place your mark. The first player to get three in a row wins!">
+    <meta property="og:title" content="Tic Tac Toe">
+    <meta property="og:description" content="Play Tic Tac Toe - a simple and fun game. Take turns clicking on the squares to place your mark. The first player to get three in a row wins!">
+    <meta property="og:url" content="https://saymorec.github.io/tic_tac_toe">
+    <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
     <div class="container">
         <h1>Tic Tac Toe</h1>
-        <p class="instructions">Take turns clicking on the squares to place your mark. The first player to get three in a row wins! Click the "Reset" button to start a new game.</p>
-        <div class="board" id="board">
+        <p class="instructions">Take turns clicking on the squares to place your mark. The first player to get three in a row wins! Click the <b>Reset</b> button to start a new game.</p>
+        <div class="board" id="board" role="grid" aria-label="Tic Tac Toe Board">
             <!-- Squares will be dynamically generated here -->
         </div>
-        <div class="status" id="status">Player X's turn</div>
+        <div class="status" id="status" aria-live="polite">Player X's turn</div>
         <button class="reset-button" id="resetButton">Reset</button>
     </div>
-    <script src="app/assets/js/ticTacToe.js"></script>
+    <script src="app/assets/js/ticTacToe.js" defer></script>
 </body>
 </html>

@@ -2,6 +2,7 @@ let boardState = ['', '', '', '', '', '', '', '', ''];
 let currentPlayer = 'X';
 let gameActive = true;
 
+// Event handler for clicking on a square
 function handleSquareClick(index) {
   if (boardState[index] !== '' || !gameActive) return;
   boardState[index] = currentPlayer;
@@ -13,8 +14,9 @@ function handleSquareClick(index) {
   }
 }
 
+// Check game status for a winner or tie
 function checkGameStatus() {
-  const prevPlayer = currentPlayer === 'X' ? 'O' : 'X';
+  const prevPlayer = currentPlayer === 'X' ? 'O' : 'X'; // Get previous player
   if (checkWinner(prevPlayer)) {
     setStatus(`Player ${prevPlayer} wins!`);
     gameActive = false;
@@ -27,6 +29,7 @@ function checkGameStatus() {
   }
 }
 
+// Check if a player has won
 function checkWinner(player) {
   const winningConditions = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
@@ -36,6 +39,7 @@ function checkWinner(player) {
   return winningConditions.some(condition => condition.every(index => boardState[index] === player));
 }
 
+// Render the game board
 function renderBoard() {
   const board = document.getElementById('board');
   board.innerHTML = '';
@@ -53,11 +57,13 @@ function renderBoard() {
   });
 }
 
+// Set game status
 function setStatus(status) {
   const statusElement = document.getElementById('status');
   statusElement.textContent = status;
 }
 
+// Reset the game
 function resetGame() {
   currentPlayer = 'X';
   gameActive = true;
@@ -66,6 +72,7 @@ function resetGame() {
   setStatus(`Player ${currentPlayer}'s turn`);
 }
 
+// Initialize the game when the DOM is loaded
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', function () {
     const resetButton = document.getElementById('resetButton');
