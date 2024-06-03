@@ -54,4 +54,3 @@ This repository contains a simple yet fully functional Tic Tac Toe game built us
 ### Running Tests
 1. To run unit tests, use the command: `yarn vitest`
 2. To run end-to-end tests, use the command: `node integration-tests/ticTacToe.mjs`
-3. To run both unit and end-to-end tests, use the command: `yarn test`
